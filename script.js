@@ -35,6 +35,14 @@ document.querySelectorAll('section').forEach((section, index) => {
   const zoomArea = document.getElementById("zoom-area");
   const originalMap = document.getElementById("original-map");
   const zoomedMap = document.getElementById("zoomed-map");
+
+// Blokkeer standaard pinch-zoom gedrag op de originele kaart
+originalMap.addEventListener("touchstart", function (e) {
+  if (e.touches.length > 1) {
+    e.preventDefault(); // voorkom native zoom
+  }
+}, { passive: false });
+
   
   zoomArea.addEventListener("touchstart", function (e) {
     if (e.touches.length === 2) {
