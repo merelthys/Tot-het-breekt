@@ -12,7 +12,7 @@ document.querySelectorAll('section').forEach((section, index) => {
     });
 });
 
-// Zorg dat Datawrapper iframes hun hoogte correct krijgen
+// Datawrapper iframe hoogte fix
 (function () {
     "use strict";
     window.addEventListener("message", function (a) {
@@ -34,41 +34,41 @@ const zoomArea = document.getElementById("zoom-area");
 const originalMap = document.getElementById("original-map");
 const zoomedMap = document.getElementById("zoomed-map");
 
+// Toon originele kaart
 function showOriginalMap() {
     originalMap.style.display = "block";
     zoomedMap.style.display = "none";
     zoomArea.style.display = "block";
 }
 
+// Toon ingezoomde kaart en verberg alles wat niet nodig is
 function showZoomedMap() {
     originalMap.style.display = "none";
     zoomedMap.style.display = "block";
-    zoomArea.style.display = "none";
+    zoomArea.style.display = "none"; // DIT is de sleutel
 }
 
-// 🔍 Nieuw: klik om in te zoomen op desktop
+// Desktop klik om in te zoomen
 zoomArea.addEventListener("click", function () {
     if (!isTouchDevice()) {
         showZoomedMap();
     }
 });
 
-// Fullscreen toggle voor foto's
+// Fullscreen foto's
 document.querySelectorAll("#zoom-area img").forEach(img => {
     img.addEventListener('click', () => {
         if (!img.classList.contains('fullscreen')) {
-            zoomArea.style.display = "none"; // Zoom-area verbergen
             img.classList.add('fullscreen');
-            zoomedMap.style.display = "block";
+            showZoomedMap();
         } else {
-            zoomArea.style.display = "block"; // Zoom-area tonen
             img.classList.remove('fullscreen');
-            zoomedMap.style.display = "none";
+            showOriginalMap();
         }
     });
 });
 
-// 🔍 Touch pinch-zoom detectie
+// Pinch-zoom touch logica
 let initialDistance = null;
 
 zoomArea.addEventListener("touchstart", function (e) {
@@ -98,7 +98,7 @@ zoomArea.addEventListener("touchend", function (e) {
     }
 }, false);
 
-// Fullscreen foto's
+// Fullscreen-foto los
 function openFullscreen(imgElement) {
     const fullscreen = document.getElementById("fullscreen-photo");
     const fullscreenImg = document.getElementById("fullscreen-img");
@@ -112,7 +112,7 @@ function closeFullscreen() {
     fullscreen.style.display = "none";
 }
 
-// Viewport-zoom mobiel aanpassen
+// Viewport zoom op mobiel aanzetten bij aanraking zoomArea
 document.addEventListener("DOMContentLoaded", function () {
     const viewportMeta = document.querySelector("meta[name=viewport]");
     let isZoomEnabled = false;
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Detecteer of het een touchscreen is
+// Detecteer touchscreen
 function isTouchDevice() {
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
