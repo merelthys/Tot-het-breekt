@@ -83,4 +83,26 @@ document.querySelectorAll('section').forEach((section, index) => {
     const fullscreen = document.getElementById("fullscreen-photo");
     fullscreen.style.display = "none";
   }
+
+// Viewport-zoom dynamisch beheren op touch
+document.addEventListener("DOMContentLoaded", function () {
+  const zoomArea = document.getElementById("zoom-area");
+  const viewportMeta = document.querySelector("meta[name=viewport]");
+  let isZoomEnabled = false;
+
+  zoomArea.addEventListener("touchstart", function () {
+    if (!isZoomEnabled) {
+      viewportMeta.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes");
+      isZoomEnabled = true;
+    }
+  });
+
+  document.body.addEventListener("touchstart", function (e) {
+    if (!zoomArea.contains(e.target)) {
+      viewportMeta.setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+      isZoomEnabled = false;
+    }
+  });
+});
+
   
