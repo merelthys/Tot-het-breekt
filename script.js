@@ -36,6 +36,13 @@ document.querySelectorAll('section').forEach((section, index) => {
   const originalMap = document.getElementById("original-map");
   const zoomedMap = document.getElementById("zoomed-map");
 
+function showOriginalMap() {
+  originalMap.style.display = "block";
+  zoomedMap.style.display = "none";
+  zoomArea.style.display = "block"; // Toon de zoom area opnieuw
+}
+
+
 // Blokkeer standaard pinch-zoom gedrag op de originele kaart
 originalMap.addEventListener("touchstart", function (e) {
   if (e.touches.length > 1) {
