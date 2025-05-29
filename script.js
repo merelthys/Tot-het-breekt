@@ -34,8 +34,6 @@ const zoomArea = document.getElementById("zoom-area");
 const originalMap = document.getElementById("original-map");
 const zoomedMap = document.getElementById("zoomed-map");
 
-
-
 function showOriginalMap() {
     originalMap.style.display = "block";
     zoomedMap.style.display = "none";
@@ -54,30 +52,23 @@ zoomArea.addEventListener("click", function () {
     }
 });
 
+// Fullscreen toggle voor foto's
 document.querySelectorAll("#zoom-area img").forEach(img => {
-  img.addEventListener('click', () => {
-    if (!img.classList.contains('fullscreen')) {
-      zoomArea.style.display = "none"; // Zoom-area verbergen
-      img.classList.add('fullscreen');
-      zoomedMap.style.display = "block";
-    } else {
-      zoomArea.style.display = "block"; // Zoom-area tonen
-      img.classList.remove('fullscreen');
-      zoomedMap.style.display = "none";
-    }
-  });
+    img.addEventListener('click', () => {
+        if (!img.classList.contains('fullscreen')) {
+            zoomArea.style.display = "none"; // Zoom-area verbergen
+            img.classList.add('fullscreen');
+            zoomedMap.style.display = "block";
+        } else {
+            zoomArea.style.display = "block"; // Zoom-area tonen
+            img.classList.remove('fullscreen');
+            zoomedMap.style.display = "none";
+        }
+    });
 });
-
-
 
 // 🔍 Touch pinch-zoom detectie
 let initialDistance = null;
-
-originalMap.addEventListener("touchstart", function (e) {
-    if (e.touches.length > 1) {
-        e.preventDefault(); // voorkom native zoom
-    }
-}, { passive: false });
 
 zoomArea.addEventListener("touchstart", function (e) {
     if (e.touches.length === 2) {
