@@ -79,6 +79,12 @@ section {
     text-align: center;
     padding: 1rem 2rem;
   }
+
+#original-map {
+  touch-action: none; /* Blokkeert pinch en double-tap op originele kaart */
+  -ms-touch-action: none;
+}
+
   
   .datawrapper-container {
     width: 100%;
@@ -185,6 +191,7 @@ section {
   height: 100%;
   z-index: 10;
   background: transparent; /* Onzichtbaar, maar vangt touch events op */
+  touch-action: pinch-zoom;
 }
 
   
