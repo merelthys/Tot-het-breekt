@@ -34,6 +34,8 @@ const zoomArea = document.getElementById("zoom-area");
 const originalMap = document.getElementById("original-map");
 const zoomedMap = document.getElementById("zoomed-map");
 
+
+
 function showOriginalMap() {
     originalMap.style.display = "block";
     zoomedMap.style.display = "none";
@@ -51,6 +53,19 @@ zoomArea.addEventListener("click", function () {
         showZoomedMap();
     }
 });
+
+img.addEventListener('click', () => {
+  if (!img.classList.contains('fullscreen')) {
+    zoomArea.classList.add('hidden');
+    img.classList.add('fullscreen');
+    zoomedMap.classList.add('visible');
+  } else {
+    zoomArea.classList.remove('hidden');
+    img.classList.remove('fullscreen');
+    zoomedMap.classList.remove('visible');
+  }
+});
+
 
 // 🔍 Touch pinch-zoom detectie
 let initialDistance = null;
