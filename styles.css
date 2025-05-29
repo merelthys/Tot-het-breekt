@@ -194,4 +194,9 @@ section {
   touch-action: pinch-zoom;
 }
 
+.zoom-area.hidden {
+  display: none;
+}
+
+
   
