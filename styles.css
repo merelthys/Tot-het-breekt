@@ -185,12 +185,12 @@ section {
 
 #zoom-area {
   position: absolute;
-  top: 600px;
-  left: 1020px;
-  width: 250px;
-  height: 250px;
+  top: 490px;
+  left: 950px;
+  width: 200px;
+  height: 200px;
   z-index: 10;
-  background-color: red; 
+  background-color: rgba(255, 0, 0, 0.1); /* rood met 10% dekking */
   touch-action: pinch-zoom;
 }
 
