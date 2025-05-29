@@ -176,4 +176,16 @@ section {
     max-width: 100%;
     max-height: 100%;
   }
+
+#zoom-area {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 1020px;
+  top: 600px;
+  background-color: red;
+  opacity: 0.2;
+  border: 2px solid red;
+  z-index: 10;
+}
   
