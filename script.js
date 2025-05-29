@@ -54,17 +54,20 @@ zoomArea.addEventListener("click", function () {
     }
 });
 
-img.addEventListener('click', () => {
-  if (!img.classList.contains('fullscreen')) {
-    zoomArea.classList.add('hidden');
-    img.classList.add('fullscreen');
-    zoomedMap.classList.add('visible');
-  } else {
-    zoomArea.classList.remove('hidden');
-    img.classList.remove('fullscreen');
-    zoomedMap.classList.remove('visible');
-  }
+document.querySelectorAll("#zoom-area img").forEach(img => {
+  img.addEventListener('click', () => {
+    if (!img.classList.contains('fullscreen')) {
+      zoomArea.style.display = "none"; // Zoom-area verbergen
+      img.classList.add('fullscreen');
+      zoomedMap.style.display = "block";
+    } else {
+      zoomArea.style.display = "block"; // Zoom-area tonen
+      img.classList.remove('fullscreen');
+      zoomedMap.style.display = "none";
+    }
+  });
 });
+
 
 
 // 🔍 Touch pinch-zoom detectie
