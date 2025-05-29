@@ -43,6 +43,7 @@ function showOriginalMap() {
 function showZoomedMap() {
     originalMap.style.display = "none";
     zoomedMap.style.display = "block";
+    zoomArea.style.display = "none";
 }
 
 // 🔍 Nieuw: klik om in te zoomen op desktop
