@@ -31,11 +31,12 @@ document.querySelectorAll('section').forEach((section, index) => {
   
   // Voor pinch-to-zoom detectie
   let initialDistance = null;
-  
+
+  const zoomArea = document.getElementById("zoom-area");
   const originalMap = document.getElementById("original-map");
   const zoomedMap = document.getElementById("zoomed-map");
   
-  originalMap.addEventListener("touchstart", function (e) {
+  zoomArea.addEventListener("touchstart", function (e) {
     if (e.touches.length === 2) {
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -43,7 +44,7 @@ document.querySelectorAll('section').forEach((section, index) => {
     }
   }, false);
   
-  originalMap.addEventListener("touchmove", function (e) {
+  zoomArea.addEventListener("touchmove", function (e) {
     if (e.touches.length === 2 && initialDistance !== null) {
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -57,7 +58,7 @@ document.querySelectorAll('section').forEach((section, index) => {
     }
   }, false);
   
-  originalMap.addEventListener("touchend", function (e) {
+  zoomArea.addEventListener("touchend", function (e) {
     if (e.touches.length < 2) {
       initialDistance = null;
     }
