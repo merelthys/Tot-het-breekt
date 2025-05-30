@@ -44,7 +44,7 @@ function showOriginalMap() {
 // Toon ingezoomde kaart en verberg alles wat niet nodig is
 function showZoomedMap() {
     originalMap.style.display = "none";
-    zoomedMap.style.display = "none";
+    zoomedMap.style.display = "block";
     zoomArea.style.display = "none"; // DIT is de sleutel
 }
 
