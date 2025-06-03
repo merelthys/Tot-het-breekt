@@ -345,6 +345,52 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// 👉 Verwijder deze oude click-handler als je deze hebt:
+// document.getElementById("zoom-area-2").addEventListener("click", () => { ... });
+
+// ✅ Nieuw gedrag voor zoom-area-2
+const zoomArea2 = document.getElementById("zoom-area-2");
+
+if (zoomArea2) {
+    let initialDistance2 = null;
+
+    // Touch: detecteer pinch-zoom
+    zoomArea2.addEventListener("touchstart", function (e) {
+        if (e.touches.length === 2) {
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            initialDistance2 = Math.sqrt(dx * dx + dy * dy);
+        }
+    }, false);
+
+    zoomArea2.addEventListener("touchmove", function (e) {
+        if (e.touches.length === 2 && initialDistance2 !== null) {
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const currentDistance = Math.sqrt(dx * dx + dy * dy);
+
+            if (currentDistance - initialDistance2 > 80) {
+                window.location.href = "deel2.html"; // ✅ Ga naar nieuwe pagina
+                initialDistance2 = null;
+            }
+        }
+    }, false);
+
+    zoomArea2.addEventListener("touchend", function (e) {
+        if (e.touches.length < 2) {
+            initialDistance2 = null;
+        }
+    }, false);
+
+    // Click voor desktop
+    zoomArea2.addEventListener("click", function () {
+        if (!isTouchDevice()) {
+            window.location.href = "deel2.html"; // ✅ Ga naar nieuwe pagina
+        }
+    });
+}
+
+
 
 // Elementselecties
 const zoomArea3 = document.getElementById("zoom-area-3");
