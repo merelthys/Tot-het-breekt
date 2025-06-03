@@ -68,7 +68,11 @@ zoomArea.addEventListener('click', function () {
     zoomedMap.style.display = 'block';
     zoomIcoon.style.display = 'none';
     clickIcoon.style.display = 'block';
+
+    document.querySelector('.kaart-toelichting').innerHTML =
+      'De grootste en bekendste is het <strong>Great Barrier Reef</strong> in Australië: een keten van bijna <strong>3.000 afzonderlijke riffen</strong>, die zich uitstrekt over 2.300 kilometer langs de noordoostkust van Queensland. Het is het grootste koraalrif ter wereld en staat sinds 1981 op de Werelderfgoedlijst van <strong>UNESCO</strong>.';
 });
+
 
 clickIcoon.style.display = 'none';
 
@@ -342,42 +346,126 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// Elementselecties
 const zoomArea3 = document.getElementById("zoom-area-3");
-const overviewPoliepen = document.querySelector(".overview-poliepen");
-const closeupPoliepen = document.querySelector(".closeup-poliepen");
-const achtergrondCloseup = document.querySelector(".achtergrond-closeup");
+const zoomArea4 = document.getElementById("zoom-area-4");
+const zoomArea5 = document.getElementById("zoom-area-5");
+
 const achtergrondVissen = document.querySelector(".achtergrond-vissen-2");
+const closeupPoliepen = document.querySelector(".closeup-poliepen");
+const closeupWit = document.querySelector(".closeup-wit");
+const closeupKleur = document.querySelector(".closeup-kleur");
 
-// voorkom scroll/zoom gedrag op touchscreens
-overviewPoliepen.addEventListener('wheel', e => {
-  e.preventDefault();
-}, { passive: false });
+const tekstBottom2 = document.querySelector(".tekst-bottom-2");
+const tekstBottom3 = document.querySelector(".tekst-bottom-3");
+const tekstBottom4 = document.querySelector(".tekst-bottom-4");
+const tekstBottom5 = document.querySelector(".tekst-bottom-5");
 
-overviewPoliepen.addEventListener('touchmove', e => {
-  e.preventDefault();
-}, { passive: false });
+const overviewPoliepen2 = document.querySelector(".overview-poliepen-2");
 
-// functie om in te zoomen
+let isKleurZichtbaar = false;
+let tekstGewisseld = false;
+
+// Zoom van overview naar close-up
 function showCloseupPoliepen() {
-  achtergrondCloseup.classList.add("visible");
-  achtergrondVissen.style.opacity = "0";
-  zoomArea3.classList.add("hidden");
+  zoomArea3.classList.add("deactivated");
+
+  // Bereken middenpunten van zoom-area en afbeelding
+  const zoomRect = zoomArea3.getBoundingClientRect();
+  const imgRect = achtergrondVissen.getBoundingClientRect();
+
+  const zoomCenterX = zoomRect.left + zoomRect.width / 2;
+  const zoomCenterY = zoomRect.top + zoomRect.height / 2;
+  const imgCenterX = imgRect.left + imgRect.width / 2;
+  const imgCenterY = imgRect.top + imgRect.height / 2;
+
+  // Offset berekenen
+  const offsetX = zoomCenterX - imgCenterX;
+  const offsetY = zoomCenterY - imgCenterY;
+
+  const scale = 2.4;
+  const translateX = -offsetX * (scale - 1);
+  const translateY = -offsetY * (scale - 1);
+
+  achtergrondVissen.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+  achtergrondVissen.style.transformOrigin = "center center";
+
+  // Fade-in closeup en fade-out overview
+  setTimeout(() => {
+    closeupPoliepen.classList.add("visible");
+    achtergrondVissen.style.opacity = "0";
+    tekstBottom2.classList.add("hidden");
+  }, 500);
 }
 
-// klik op zoomArea3 activeert inzoomen
-zoomArea3.addEventListener("click", function () {
-  showCloseupPoliepen();
+// Klik op zoom-area-3 → zoom-in
+zoomArea3.addEventListener("click", showCloseupPoliepen);
+
+// Klik op zoom-area-4 → toggle closeup kleur en tekstwissel
+zoomArea4.addEventListener("click", () => {
+  isKleurZichtbaar = !isKleurZichtbaar;
+
+  if (isKleurZichtbaar) {
+    closeupKleur.classList.add("visible");
+    closeupWit.style.opacity = "0";
+  } else {
+    closeupKleur.classList.remove("visible");
+    closeupWit.style.opacity = "1";
+  }
+
+  if (!tekstGewisseld) {
+    tekstBottom3.classList.add("hidden");
+    tekstBottom4.classList.add("visible");
+    tekstGewisseld = true;
+  }
 });
 
-// optioneel: controle op touch
-function isTouchDevice() {
-  return 'ontouchstart' in window || navigator.maxTouchPoints;
-}
+// Klik op zoom-area-5 → terug naar overview-poliepen-2
+zoomArea5.addEventListener("click", () => {
+  // Verberg close-up
+  closeupPoliepen.classList.remove("visible");
 
+  // Reset zoom en opacity
+  achtergrondVissen.style.opacity = "1";
+  achtergrondVissen.style.transform = "none";
 
+  // Reset afbeeldingen en tekst
+  closeupKleur.classList.remove("visible");
+  closeupWit.style.opacity = "1";
+  isKleurZichtbaar = false;
+  tekstGewisseld = false;
 
+  tekstBottom2.classList.add("hidden");
+  tekstBottom3.classList.add("hidden");
+  tekstBottom4.classList.remove("visible");
 
+  // Toon nieuwe overview
+  overviewPoliepen2.classList.add("visible");
+  tekstBottom5.classList.add("visible");
+});
 
+const top1 = document.querySelector('.top1');
 
+// Scroll van .overview-poliepen-2 naar .top1 als je  scrollt
+overviewPoliepen2.addEventListener('wheel', (e) => {
+  if (e.deltaY < 0) {
+    e.preventDefault();
+    top1.scrollIntoView({ behavior: 'smooth' });
+  }
+}, { passive: false });
 
+let touchStartY = 0;
+let touchEndY = 0;
 
+overviewPoliepen2.addEventListener('touchstart', (e) => {
+  touchStartY = e.changedTouches[0].screenY;
+});
+
+overviewPoliepen2.addEventListener('touchend', (e) => {
+  touchEndY = e.changedTouches[0].screenY;
+  const swipeDown = touchEndY - touchStartY > 50;
+
+  if (swipeDown) {
+    top1.scrollIntoView({ behavior: 'smooth' });
+  }
+});
