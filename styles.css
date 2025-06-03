@@ -26,7 +26,7 @@ html, body {
 /* section start-kaarten */
 
 .vertical-stack {
-    height: 200vh; /* twee secties: boven en onder water */
+    height: 200vh;
   }
   
 .panel {
@@ -48,15 +48,14 @@ section {
     -webkit-overflow-scrolling: touch;
   }
 
-.scroll-container,
-section {
+.scroll-container, section {
   scroll-behavior: smooth;
 }
 
 .achtergrond-vissen {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* zorgt dat de afbeelding mooi gevuld is */
+    object-fit: cover; 
   }
 
 .panel.bottom {
@@ -102,22 +101,19 @@ section {
 /** stijling kaarten enzo **/
 
 #original-map {
-    overflow: hidden; /* Verberg eventuele scrollbars en voorkom scrollen */
-    touch-action: none; /* Blokkeer touch scroll en zoom */
+    overflow: hidden; 
+    touch-action: none;
     -ms-touch-action: none;
-    pointer-events: auto; /* Zorg dat pointer-events mogelijk blijven voor clicks etc */
-    user-select: none; /* voorkom selectie als dat gewenst is */
+    pointer-events: auto; 
+    user-select: none; 
   }
 
   #original-map iframe {
-    pointer-events: auto; /* wel clicks toelaten */
-    overflow: hidden; /* geen scroll in iframe */
-    touch-action: none; /* geen touch scroll in iframe */
+    pointer-events: auto; 
+    overflow: hidden;
+    touch-action: none; /
   }
-  
-  
-  
-    
+
     .datawrapper-container {
       width: 100%;
       height: 100%;
@@ -138,7 +134,7 @@ section {
       bottom: 5rem;
       left: 5rem;
       max-width: 500px;
-      background-color: rgba(255, 255, 255, 0.77); /* wit met 77% opacity */
+      background-color: rgba(255, 255, 255, 0.77); 
       color: black;
       font-size: 13pt;
       line-height: 1.4;
@@ -164,49 +160,13 @@ section {
     position: relative;
   }
 
-  .line6 {
+  .line6, .line5, .line3, .line1, .line2, .line4 {
     height: 1px;
     background-color: #333333;
     position: absolute;
     transform-origin: left center;
   }
 
-  .line5 {
-    height: 1px;
-    background-color: #333333;
-    position: absolute;
-    transform-origin: left center;
-  }
-
-  .line3 {
-    height: 1px;
-    background-color: #333333;
-    position: absolute;
-    transform-origin: left center;
-  }
-
-  .line1 {
-    height: 1px;
-    background-color: #333333;
-    position: absolute;
-    transform-origin: left center;
-  }
-
-  .line2 {
-    height: 1px;
-    background-color: #333333;
-    position: absolute;
-    transform-origin: left center;
-  }
-
-  .line4 {
-    height: 1px;
-    background-color: #333333;
-    position: absolute;
-    transform-origin: left center;
-  }
-  
-  
   .photo-thumb {
     width: 150px;
     height: 150px;
@@ -221,8 +181,7 @@ section {
   .photo-thumb:hover {
     transform: scale(1.1);
   }
-  
-  /* Plaatsing van foto's (pas X/Y aan naar wens met percentages of pixels) */
+
   .photo-thumb:nth-child(1) { top: 270px; left: 960px; }
   .photo-thumb:nth-child(2) { top: 200px; left: 460px; }
   .photo-thumb:nth-child(3) { top: 400px; left: 500px; }
@@ -230,7 +189,6 @@ section {
   .photo-thumb:nth-child(5) { top: 590px; left: 700px; }
   .photo-thumb:nth-child(6) { top: 500px; left: 1000px; }
   
-  /* Fullscreen weergave */
   .fullscreen-photo {
     display: none;
     position: fixed;
@@ -257,7 +215,7 @@ section {
   width: 253px;
   height: 184px;
   z-index: 10;
-  background-color: rgba(255, 190, 190, 0.1); /* rood met 10% dekking */
+  background-color: rgba(255, 190, 190, 0.1); 
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
   touch-action: pinch-zoom;
 }
@@ -267,7 +225,7 @@ section {
 }
 
 .zoom-effect {
-    transform: scale(1.3); /* of 1.5 voor sterker effect */
+    transform: scale(1.3); 
     transition: transform 0.5s ease-in-out;
     z-index: 10;
   }
@@ -277,7 +235,6 @@ section {
     transition: opacity 0.5s ease-in-out;
   }
   
-
 .zoom-icoon {
     position: absolute;
     z-index: 11;
@@ -317,8 +274,8 @@ section {
     z-index: 10;
   }
 
+/* DEEL 2 BOTTOM */
 
-/* DEEL 2 */
   .tekst-bottom-2 {
     position: absolute;
     top: 45%;
@@ -341,7 +298,7 @@ section {
     width: 383px;
     height: 294px;
     z-index: 10;
-    background-color: rgba(255, 255, 255, 0.1); /* rood met 10% dekking */
+    background-color: rgba(255, 255, 255, 0.1); 
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
     touch-action: pinch-zoom;
   }
@@ -356,6 +313,7 @@ section {
   display: block;
   max-width: 100%;
   height: auto;
+  transition: transform 1.2s ease-in-out, opacity 0.6s ease-in-out;
 }
 
 .achtergrond-closeup {
@@ -365,19 +323,186 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
   z-index: 2;
   pointer-events: none;
 }
 
-.achtergrond-closeup.visible {
+#zoom-area-3.hidden {
+  display: none;
+}
+
+#zoom-area-3.deactivated {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.tekst-bottom-3 {
+  position: absolute;
+  top: 85%;
+  left: 24%;
+  transform: translate(-50%, -188%);
+  color: white;
+  font-family: 'eb-garamond', serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18pt;
+  text-align: center;
+  width: 30%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.tekst-bottom-4 {
+  display: none;
+  position: absolute;
+  top: 97%;
+  left: 24%;
+  transform: translate(-50%, -188%);
+  color: white;
+  font-family: 'eb-garamond', serif;
+  font-size: 18pt;
+  text-align: center;
+  width: 30%;
+  z-index: 3;
+  pointer-events: none;
+}
+.tekst-bottom-4.visible {
+  display: block;
+}
+.tekst-bottom-3.hidden {
+  display: none;
+}
+
+.closeup-poliepen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.closeup-poliepen.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.closeup-wit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  z-index: 9;
+}
+
+#zoom-area-4 {
+  position: absolute;
+  top: 118px;
+  left: 127px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  z-index: 11; 
+  touch-action: pinch-zoom;
+}
+
+.closeup-wit, .closeup-kleur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: opacity 1s ease;
+}
+
+.closeup-wit {
   opacity: 1;
 }
 
+.closeup-kleur {
+  opacity: 0;
+}
 
+.closeup-kleur.visible {
+  opacity: 1;
+  z-index: 8;
+}
 
+#zoom-area-5 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1366px;
+    height: 1024px;
+    z-index: 10;
+    touch-action: pinch-zoom;
+  }
 
+.tekst-bottom-5 {
+  display: none;
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translate(-50%, -188%);
+  color: white;
+  font-family: 'eb-garamond', serif;
+  font-size: 18pt;
+  text-align: center;
+  width: 30%;
+  z-index: 3;
+  pointer-events: none;
+}
+.tekst-bottom-5.visible {
+  display: block;
+}
 
- 
-  
+.overview-poliepen-2 {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.overview-poliepen-2.visible {
+  display: block;
+  z-index: 3;
+}
+
+  .tekst-bottom-5 {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -188%);
+    color: white;
+    font-family: 'eb-garamond', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18pt;
+    text-align: center;
+    padding: 1rem 2rem;
+    z-index: 2;
+  }
+
+.achtergrond-vissen-3 {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* DEEL 2 TOP */
+
+.meeuwen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
