@@ -164,10 +164,7 @@ function isTouchDevice() {
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
 
-document.getElementById("zoom-area-2").addEventListener("click", () => {
-    const panels = document.querySelectorAll(".panel.bottom");
-    panels[1].scrollIntoView({ behavior: "smooth" });
-});
+
 
 // ➕ Blokkeer horizontaal swipen in panel.bottom
 document.addEventListener("DOMContentLoaded", function () {
