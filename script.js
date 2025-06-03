@@ -195,52 +195,52 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Blokkeer omlaag scrollen in section.start .panel.bottom
+// Swipe omlaag op .panel.bottom → scroll naar .panel.top in section.start
 document.addEventListener("DOMContentLoaded", () => {
     const startSection = document.querySelector("section.start");
-    if (startSection) {
-        const startBottomPanel = startSection.querySelector(".panel.bottom");
+    if (!startSection) return;
 
-        if (startBottomPanel) {
-            startBottomPanel.addEventListener("wheel", function (e) {
-                const goingUp = e.deltaY > 0;
-                const horizontalScroll = e.deltaX !== 0;
-                if (goingUp || horizontalScroll) {
-                    e.preventDefault(); // Blokkeer scroll omlaag
-                }
-            }, { passive: false });
+    const startBottomPanel = startSection.querySelector(".panel.bottom");
+    const startTopPanel = startSection.querySelector(".panel.top");
 
-            let startX = 0;
-            let startY = 0;
+    if (!startBottomPanel || !startTopPanel) return;
 
-            startBottomPanel.addEventListener("touchstart", function (e) {
-                if (e.touches.length === 1) {
-                    startX = e.touches[0].clientX;
-                    startY = e.touches[0].clientY;
-                }
-            });
-
-            startBottomPanel.addEventListener("touchmove", function (e) {
-                if (e.touches.length === 1) {
-                    const deltaX = e.touches[0].clientX - startX;
-                    const deltaY = e.touches[0].clientY - startY;
-
-                    const movingHorizontaal = Math.abs(deltaX) > Math.abs(deltaY);
-                    const movingUp = deltaY > 0;
-
-                    if (movingHorizontaal || movingUp) {
-                        e.preventDefault();
-                    }
-                }
-            }, { passive: false });
-
-            startBottomPanel.addEventListener("keydown", function (e) {
-                if (e.key === "ArrowDown" || e.key === "PageDown") {
-                    e.preventDefault(); // Blokkeer pijltjestoetsen omlaag
-                }
-            });
+    // Blokkeer omlaag scroll met muis of horizontale scroll
+    startBottomPanel.addEventListener("wheel", function (e) {
+        const goingUp = e.deltaY > 0;
+        const horizontalScroll = e.deltaX !== 0;
+        if (goingUp || horizontalScroll) {
+            e.preventDefault();
         }
-    }
+    }, { passive: false });
+
+    // Swipe naar boven (dus vinger omlaag) detecteren
+    let touchStartY = 0;
+
+    startBottomPanel.addEventListener("touchstart", function (e) {
+        if (e.touches.length === 1) {
+            touchStartY = e.touches[0].clientY;
+        }
+    });
+
+    startBottomPanel.addEventListener("touchend", function (e) {
+        if (e.changedTouches.length === 1) {
+            const touchEndY = e.changedTouches[0].clientY;
+            const deltaY = touchEndY - touchStartY;
+
+            if (deltaY > 50) {
+                // Swipe omlaag → scroll naar boven
+                startTopPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+    });
+
+    // Blokkeer pijltjestoetsen omlaag
+    startBottomPanel.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowDown" || e.key === "PageDown") {
+            e.preventDefault();
+        }
+    });
 });
 
 // Blokkeer scrollen in section.start .panel.top
